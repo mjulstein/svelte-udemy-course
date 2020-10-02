@@ -1,9 +1,9 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+
   import Button from '../UI/Button.svelte';
   import InputText from '../UI/InputText.svelte';
-
-  export let saveMeetupFunc;
-
+  const dispatch = createEventDispatcher();
   function getFormValues(form) {
     const formData = new FormData(form);
     const data = {};
@@ -15,7 +15,7 @@
   function handleSumbit(submitEvent) {
     try {
       const data = getFormValues(submitEvent.target);
-      saveMeetupFunc(data);
+      dispatch('form-submitted', data);
     } catch (error) {
       console.error(error);
     }

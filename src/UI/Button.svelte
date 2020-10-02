@@ -86,5 +86,5 @@
 {#if !!href}
   <a {href} class={classnames}><slot /></a>
 {:else}
-  <button class={classnames} {type}><slot /></button>
+  <button class={classnames} {type} on:click><slot /></button>
 {/if}

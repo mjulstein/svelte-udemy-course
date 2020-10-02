@@ -25,10 +25,10 @@
       contactEmail: 'code@test.com'
     }
   ];
-  function addMeetup(formValues = {}) {
+  function addMeetup({ detail }) {
     const newMeetup = {
       id: new Date().getTime(),
-      ...formValues
+      ...detail
     };
     meetups = [newMeetup, ...meetups];
   }
@@ -43,6 +43,6 @@
 <Header />
 
 <main>
-  <MeetupForm saveMeetupFunc={addMeetup} />
+  <MeetupForm on:form-submitted={addMeetup} />
   <MeetupGrid {meetups} />
 </main>
