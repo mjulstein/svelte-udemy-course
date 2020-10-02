@@ -1,8 +1,8 @@
 <script>
-  import MeetupList from './Meetups/MeetupGrid.svelte';
+  import MeetupForm from './Meetups/MeetupForm.svelte';
 
+  import MeetupGrid from './Meetups/MeetupGrid.svelte';
   import Header from './UI/Header.svelte';
-  import InputText from './UI/InputText.svelte';
 
   let meetups = [
     {
@@ -25,22 +25,6 @@
       contactEmail: 'code@test.com'
     }
   ];
-  function getFormValues(form) {
-    const formData = new FormData(form);
-    const data = {};
-    for (const pair of formData.entries()) {
-      if (!!pair[0] && !!pair[1]) data[pair[0]] = pair[1];
-    }
-    return data;
-  }
-  function handleSumbit(submitEvent) {
-    try {
-      const data = getFormValues(submitEvent.target);
-      addMeetup(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
   function addMeetup(formValues = {}) {
     const newMeetup = {
       id: new Date().getTime(),
@@ -59,14 +43,6 @@
 <Header />
 
 <main>
-  <form on:submit|preventDefault={handleSumbit}>
-    <InputText id="title">Title</InputText>
-    <InputText id="subtitle">Subtitle</InputText>
-    <InputText id="description" type="textarea">Description</InputText>
-    <InputText id="imageUrl">ImageUrl</InputText>
-    <InputText id="address">Address</InputText>
-    <InputText id="contactEmail" type="email">Contact Email</InputText>
-    <button type="submit">Save</button>
-  </form>
-  <MeetupList {meetups} />
+  <MeetupForm saveMeetupFunc={addMeetup} />
+  <MeetupGrid {meetups} />
 </main>
