@@ -1,4 +1,5 @@
 <script>
+  export let id;
   export let title;
   export let subtitle;
   export let imageUrl;
@@ -59,7 +60,7 @@
 <article>
   <header>
     <h1>{title}</h1>
-    <h2>{subtitle}</h2>
+    <h2>{subtitle} ({id})</h2>
     <p>{address}</p>
   </header>
   <div class="image"><img src={imageUrl} alt={title} /></div>

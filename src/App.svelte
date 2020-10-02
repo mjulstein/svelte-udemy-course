@@ -3,7 +3,8 @@
 
   import Header from './UI/Header.svelte';
   import InputText from './UI/InputText.svelte';
-  const meetups = [
+
+  let meetups = [
     {
       id: 'm1',
       title: 'Coding Bootcamp',
@@ -33,8 +34,19 @@
     return data;
   }
   function handleSumbit(submitEvent) {
-    const data = getFormValues(submitEvent.target);
-    debugger;
+    try {
+      const data = getFormValues(submitEvent.target);
+      addMeetup(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  function addMeetup(formValues = {}) {
+    const newMeetup = {
+      id: new Date().getTime(),
+      ...formValues
+    };
+    meetups = [newMeetup, ...meetups];
   }
 </script>
 
