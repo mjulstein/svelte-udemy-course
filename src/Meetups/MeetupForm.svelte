@@ -37,5 +37,5 @@
   <InputText id="imageUrl">ImageUrl</InputText>
   <InputText id="address">Address</InputText>
   <InputText id="contactEmail" type="email">Contact Email</InputText>
-  <Button>Save</Button>
+  <Button type="submit">Save</Button>
 </form>

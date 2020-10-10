@@ -2,8 +2,9 @@
   import MeetupForm from './Meetups/MeetupForm.svelte';
 
   import MeetupGrid from './Meetups/MeetupGrid.svelte';
+  import Button from './UI/Button.svelte';
   import Header from './UI/Header.svelte';
-
+  let editMode = null;
   let meetups = [
     {
       id: 'm1',
@@ -33,6 +34,7 @@
       ...detail
     };
     meetups = [newMeetup, ...meetups];
+    editMode = false;
   }
   function handleFavoriteClicked({ detail }) {
     const index = meetups.findIndex(({ id }) => id === detail);
@@ -47,11 +49,21 @@
   main {
     margin-top: 5rem;
   }
+  .meetup-controls {
+    margin: 1rem;
+  }
 </style>
 
 <Header />
 
 <main>
-  <MeetupForm on:form-submitted={addMeetup} />
+  <div class="meetup-controls">
+    <Button on:click={() => (editMode = 'add')} disabled={!!editMode}>
+      New Meetup
+    </Button>
+  </div>
+  {#if editMode === 'add'}
+    <MeetupForm on:form-submitted={addMeetup} />
+  {/if}
   <MeetupGrid {meetups} on:favorite-clicked={handleFavoriteClicked} />
 </main>

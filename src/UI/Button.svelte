@@ -1,9 +1,13 @@
 <script>
-  export let type = 'submit';
+  export let type = 'button';
   export let href = undefined;
   export let success = false;
   export let mode = undefined;
+  export let disabled = false;
   $: classnames = mode || '';
+  if (disabled && !!href) {
+    href = '#';
+  }
 </script>
 
 <style>
@@ -85,7 +89,13 @@
 </style>
 
 {#if !!href}
-  <a {href} class={classnames}><slot /></a>
+  <a class:disabled {href} class={classnames}><slot /></a>
 {:else}
-  <button class={classnames} class:success {type} on:click><slot /></button>
+  <button
+    class={classnames}
+    class:success
+    {type}
+    class:disabled
+    on:click
+    {disabled}><slot /></button>
 {/if}
