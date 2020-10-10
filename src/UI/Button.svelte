@@ -1,7 +1,8 @@
 <script>
   export let type = 'submit';
   export let href = undefined;
-  export let mode;
+  export let success = false;
+  export let mode = undefined;
   $: classnames = mode || '';
 </script>
 
@@ -86,5 +87,5 @@
 {#if !!href}
   <a {href} class={classnames}><slot /></a>
 {:else}
-  <button class={classnames} {type} on:click><slot /></button>
+  <button class={classnames} class:success {type} on:click><slot /></button>
 {/if}

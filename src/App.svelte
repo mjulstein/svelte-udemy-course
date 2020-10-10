@@ -13,7 +13,8 @@
         'In this meetup we will have some experts that will teach you how to code!',
       imageUrl: 'https://www.instagram.com/p/CEO0H9FDv0H/media/?size=l',
       address: '27th Nerd Rd, 32515 NY',
-      contactEmail: 'code@test.com'
+      contactEmail: 'code@test.com',
+      isFavorite: false
     },
     {
       id: 'm2',
@@ -22,7 +23,8 @@
       description: 'Well swim some ipsum dipsum slipsum!',
       imageUrl: 'https://www.instagram.com/p/CEO0H9FDv0H/media/?size=l',
       address: '27th Nerd Rd, 32515 NY',
-      contactEmail: 'code@test.com'
+      contactEmail: 'code@test.com',
+      isFavorite: false
     }
   ];
   function addMeetup({ detail }) {
@@ -31,6 +33,13 @@
       ...detail
     };
     meetups = [newMeetup, ...meetups];
+  }
+  function handleFavoriteClicked({ detail }) {
+    const index = meetups.findIndex(({ id }) => id === detail);
+    if (index === -1) {
+      return;
+    }
+    meetups[index].isFavorite = !meetups[index].isFavorite;
   }
 </script>
 
@@ -44,5 +53,5 @@
 
 <main>
   <MeetupForm on:form-submitted={addMeetup} />
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:favorite-clicked={handleFavoriteClicked} />
 </main>

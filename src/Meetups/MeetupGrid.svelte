@@ -23,7 +23,7 @@
 <ul class="meetups">
   {#each meetups as meetup, i (meetup.id)}
     <li>
-      <MeetupItem {...meetup} />
+      <MeetupItem {...meetup} on:favorite-clicked on:show-details-clicked />
     </li>
   {/each}
 </ul>
