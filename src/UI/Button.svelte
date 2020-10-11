@@ -1,6 +1,7 @@
 <script>
   export let type = 'button';
   export let href = undefined;
+  export let form = undefined;
   export let success = false;
   export let mode = undefined;
   export let disabled = false;
@@ -95,6 +96,7 @@
     class={classnames}
     class:success
     {type}
+    {form}
     class:disabled
     on:click
     {disabled}><slot /></button>

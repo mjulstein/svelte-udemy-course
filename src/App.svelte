@@ -43,6 +43,9 @@
     }
     meetups[index].isFavorite = !meetups[index].isFavorite;
   }
+  function cancelEdit() {
+    editMode = null;
+  }
 </script>
 
 <style>
@@ -63,7 +66,10 @@
     </Button>
   </div>
   {#if editMode === 'add'}
-    <MeetupForm on:form-submitted={addMeetup} />
+    <MeetupForm
+      title="Add new meetup"
+      on:form-submitted={addMeetup}
+      on:cancel={cancelEdit} />
   {/if}
   <MeetupGrid {meetups} on:favorite-clicked={handleFavoriteClicked} />
 </main>

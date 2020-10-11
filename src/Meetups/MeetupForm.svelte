@@ -3,7 +3,11 @@
 
   import Button from '../UI/Button.svelte';
   import InputText from '../UI/InputText.svelte';
+  import Modal from '../UI/Modal.svelte';
+
   const dispatch = createEventDispatcher();
+  export let title;
+
   function getFormValues(form) {
     const formData = new FormData(form);
     const data = {};
@@ -20,22 +24,22 @@
       console.error(error);
     }
   }
+  function cancel() {
+    dispatch('cancel');
+  }
 </script>
 
-<style>
-  form {
-    width: 30rem;
-    max-width: 90%;
-    margin: auto;
-  }
-</style>
-
-<form on:submit|preventDefault={handleSumbit}>
-  <InputText id="title">Title</InputText>
-  <InputText id="subtitle">Subtitle</InputText>
-  <InputText id="description" type="textarea">Description</InputText>
-  <InputText id="imageUrl">ImageUrl</InputText>
-  <InputText id="address">Address</InputText>
-  <InputText id="contactEmail" type="email">Contact Email</InputText>
-  <Button type="submit">Save</Button>
-</form>
+<Modal {title} on:cancel>
+  <form id={title} on:submit|preventDefault={handleSumbit}>
+    <InputText id="title">Title</InputText>
+    <InputText id="subtitle">Subtitle</InputText>
+    <InputText id="description" type="textarea">Description</InputText>
+    <InputText id="imageUrl">ImageUrl</InputText>
+    <InputText id="address">Address</InputText>
+    <InputText id="contactEmail" type="email">Contact Email</InputText>
+  </form>
+  <div slot="footer">
+    <Button on:click={cancel} mode="outlined">Cancel</Button>
+    <Button type="submit" form={title}>Save</Button>
+  </div>
+</Modal>
