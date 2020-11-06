@@ -1,8 +1,29 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+  import validate from '../helpers/validation';
   export let id;
   export let name = id;
   export let type = 'text';
   export let rows = 3;
+  export let valid = true;
+  export let validators = [];
+  export let hint = '';
+
+  function checkValidators(value) {
+    return (
+      validators.length === 0 ||
+      validators.every((validator) => validate[validator](value))
+    );
+  }
+
+  const dispatch = createEventDispatcher();
+  function handleBlur({ target }) {
+    if (checkValidators(target.value)) {
+      dispatch('valid-input', id);
+    } else {
+      dispatch('invalid-input', id);
+    }
+  }
 </script>
 
 <style>
@@ -33,6 +54,14 @@
   label {
     margin-bottom: 0.5rem;
   }
+  .invalid {
+    border-color: red;
+    background-color: #ffe3e3;
+  }
+  .error-message {
+    color: red;
+    margin: 0.25rem 0;
+  }
 </style>
 
 <div class="form-control">
@@ -40,6 +69,21 @@
     <slot />
   </label>
   {#if type !== 'textarea'}
-    <input {type} {id} {name} />
-  {:else}<textarea {rows} {id} {name} />{/if}
+    <input
+      {type}
+      class:invalid={!valid}
+      {id}
+      {name}
+      on:blur|preventDefault={handleBlur} />
+  {:else}
+    <textarea
+      class:invalid={!valid}
+      {rows}
+      {id}
+      {name}
+      on:blur|preventDefault={handleBlur} />
+  {/if}
+  {#if hint}
+    <p class:error-message={!valid}>{hint}</p>
+  {/if}
 </div>

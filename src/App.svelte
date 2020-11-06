@@ -71,5 +71,8 @@
       on:form-submitted={addMeetup}
       on:cancel={cancelEdit} />
   {/if}
-  <MeetupGrid {meetups} on:favorite-clicked={handleFavoriteClicked} />
+  <MeetupGrid
+    {meetups}
+    on:favorite-clicked={handleFavoriteClicked}
+    on:show-details-clicked />
 </main>
