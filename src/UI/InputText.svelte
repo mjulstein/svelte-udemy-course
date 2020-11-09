@@ -83,7 +83,7 @@
       {name}
       on:blur|preventDefault={handleBlur} />
   {/if}
-  {#if hint}
+  {#if !valid && hint}
     <p class:error-message={!valid}>{hint}</p>
   {/if}
 </div>

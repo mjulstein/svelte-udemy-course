@@ -30,7 +30,7 @@ export default [
   {
     label: 'Contact Email',
     id: 'contactEmail',
-    validators,
+    validators: ['is-valid-email'],
     type: 'email'
   }
 ];
